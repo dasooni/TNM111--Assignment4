@@ -1,0 +1,12 @@
+import * as d3 from "d3"
+import {ForceGraph} from "@d3/force-directed-graph-canvas"
+
+
+chart = ForceGraph(miserables, {
+    nodeId: (d) => d.id,
+    nodeGroup: (d) => d.group,
+    linkStrokeWidth: (l) => Math.sqrt(l.value),  
+    width,
+    height: 600,
+    invalidation, // a promise to stop the simulation when the cell is re-run
+  })
