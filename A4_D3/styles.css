@@ -1,0 +1,33 @@
+
+.nodes circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.nodes text {
+  font: 10px sans-serif;
+}
+
+.links path {
+    stroke: #999;
+    stroke-width: 1.5px;
+  }
+
+#tooltip {
+    background-color: red;
+}
+  
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: transparent;
+    border: 0px;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+/* Path: A4_D3\index.html */
