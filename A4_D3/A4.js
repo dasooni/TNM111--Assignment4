@@ -34,16 +34,15 @@ function clearDiagram(svg) {
 }
 
 // Function to render the diagram. All rendering is done here.
-function renderDiagram(svg, id, data) {
+function renderDiagram(svg, id, data, svg2) {
     clearDiagram(svg); // Clear the diagram before rendering
     
     const link = svg.append("g")
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", 0.6)
+        .attr("class", "links")
         .selectAll("line")
         .data(data.links)
         .enter().append("line")
-        .attr("stroke-width", function (d) { return Math.sqrt(d.value) });     
+        .attr("stroke-width", function (d) { return Math.sqrt(d.value) });
 
     var tooltip = d3.select(id).append("div")
         .style("opacity", 0)
@@ -57,7 +56,7 @@ function renderDiagram(svg, id, data) {
         .enter().append("circle")
         .attr("r", function (d) { return d.value * Math.PI/6})
         .style("fill", function (d) { return d.colour });
-    
+
     node.append("title")
         .text(function (d) { return String(d.name) });
     
@@ -78,31 +77,25 @@ function renderDiagram(svg, id, data) {
             .style("opacity", 0);
     });
 
-    svg.selectAll(".nodes").selectAll("circle").on("click", function mouseclick(event, d) {
-        link
-            .attr("stroke", function (l) {
+    node.on("click", function mouseclick(event, d) {
+        d3.selectAll(".links").selectAll("line")
+            .style("stroke", function (l) {
                 if (l.source === d || l.target === d) {
                     return "red";
                 } else {
                     return "#999";
                 }
             })
-            .attr("stroke-opacity", function (l) {
+            .style("stroke-opacity", function (l) {
                 if (l.source === d || l.target === d) {
                     return 1;
                 } else {
                     return 0.6;
                 }
-            })
-            .attr("stroke-width", function (l) {
-                if (l.source === d || l.target === d) {
-                    return Math.sqrt(l.value) * 2;
-                } else {
-                    return Math.sqrt(l.value);
-                }
             });
     });
 
+    
     const simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink()
             .id(function (d) { return d.index })
@@ -147,3 +140,4 @@ function renderDiagram(svg, id, data) {
     }
 
 }
+

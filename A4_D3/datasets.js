@@ -74,8 +74,8 @@ function updateVis() {
     .then(function (data) {
       const episodeData = data[0];
 
-      renderDiagram(svg, "body", episodeData);
-      renderDiagram(svg_right, "body", episodeData);
+      renderDiagram(svg,"body", episodeData, svg_right);
+      renderDiagram(svg_right,"body", episodeData, svg);
       console.log("renderDiagram");
     })
     .catch(function (error) {
@@ -88,4 +88,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
   updateVis();
   document.getElementById("select_graph").addEventListener("change", updateVis);
   console.log("event listener added");
+
 });

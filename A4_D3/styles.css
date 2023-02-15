@@ -10,9 +10,16 @@
 }
 
 .links path {
-    stroke: #999;
+    stroke: #030303;
+    stroke-width: 1px;
+}
+
+.links line {
+    stroke: #dabbbb;
     stroke-width: 1.5px;
 }
+
+
 
 #tooltip {
     background-color: red;
