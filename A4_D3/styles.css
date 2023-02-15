@@ -12,7 +12,7 @@
 .links path {
     stroke: #999;
     stroke-width: 1.5px;
-  }
+}
 
 #tooltip {
     background-color: red;
@@ -30,4 +30,35 @@
     border-radius: 5px;
     pointer-events: none;
   }
-/* Path: A4_D3\index.html */
+
+  svg {
+    margin: auto;
+    padding-left: 50px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+
+  select {
+    margin: 10px;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  body {
+    background-color: #f2f2f2;
+  }
+
+  .wrap {
+    overflow: hidden;
+  }
+  .graph1 {
+    float : left;
+  }
+
+  .graph2 {
+    vertical-align: top;
+    display: inline-block;
+  }
