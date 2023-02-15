@@ -9,11 +9,41 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
     </head>
 
-    <body>
-        <div id="graph1"></div>
-        <div id="graph2"></div>
+
+    <body style="width: 1776px">    
+    <div class = "wrapper">
+        <div class = "graph1">
+            <select id = "select_graph">
+                <option value = "0">All Episodes (1-7)</option>
+                <option value = "1">Episode I</option>
+                <option value = "2">Episode II</option>
+                <option value = "3">Episode III</option>
+                <option value = "4">Episode IV</option>
+                <option value = "5">Episode V</option>
+                <option value = "6">Episode VI</option>
+                <option value = "7">Episode VII</option>
+            </select>
+
+        <svg id="graph1_svg"></svg> 
+        </div>
+        <div class = "graph2">   
+            <select id = "select_graph2">
+                <option value = "0">All Episodes (1-7)</option>
+                <option value = "1">Episode I</option>
+                <option value = "2">Episode II</option>
+                <option value = "3">Episode III</option>
+                <option value = "4">Episode IV</option>
+                <option value = "5">Episode V</option>
+                <option value = "6">Episode VI</option>
+                <option value = "7">Episode VII</option>
+            </select>
+
+        <svg id="graph2_svg"></svg> 
+        </div>
+    </div>
 
         <!-- Custom JS -->
+        <script src="datasets.js"></script>
         <script src="A4.js"></script>
     </body>
 
