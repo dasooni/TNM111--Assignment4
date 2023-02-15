@@ -78,7 +78,7 @@ function renderDiagram(svg, id, data) {
             .style("opacity", 0);
     });
 
-    d3.selectAll(".nodes").selectAll("circle").on("click", function mouseclick(event, d) {
+    svg.selectAll(".nodes").selectAll("circle").on("click", function mouseclick(event, d) {
         link
             .attr("stroke", function (l) {
                 if (l.source === d || l.target === d) {
