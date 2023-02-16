@@ -37,17 +37,18 @@ function clearDiagram(svg) {
 function renderDiagram(svg, id, data, svg2) {
     clearDiagram(svg); // Clear the diagram before rendering
     
+    // Add tooltip, for hovering texts. 
+    var tooltip = d3.select(id).append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .text("tooltip");
+    
     const link = svg.append("g")
         .attr("class", "links")
         .selectAll("line")
         .data(data.links)
         .enter().append("line")
         .attr("stroke-width", function (d) { return Math.sqrt(d.value) });
-
-    var tooltip = d3.select(id).append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .text("tooltip");
 
     const node = svg.append("g")
         .attr("class", "nodes")
@@ -60,13 +61,25 @@ function renderDiagram(svg, id, data, svg2) {
     node.append("title")
         .text(function (d) { return String(d.name) });
     
-    node.on("mouseover", function mouseover(event, d) {
-        // Show d.name in tooltip¨
+    link.on("mouseover" , function(event, d) {
         tooltip.transition()
             .duration(200)
             .style("opacity", 1);
         tooltip
-            .html(d.name)
+            .html("Source: " + "<h4>" + d.source.name + "</h4>" 
+            + " Target: " + "<h4>" + d.target.name + "</h4>"
+             + " Value: " + "<h4>" + d.value + "</h4>")
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 28) + "px")
+    });
+    
+    node.on("mouseover", function(event, d) {
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", 1);
+        tooltip
+            .html("<h4>" + d.name + "</h4>" 
+            + " Value: " + "<h4>" + d.value + "</h4>")
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
     });
@@ -94,7 +107,6 @@ function renderDiagram(svg, id, data, svg2) {
                 }
             });
     });
-
     
     const simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink()

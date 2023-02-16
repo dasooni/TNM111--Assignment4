@@ -18,12 +18,6 @@
     stroke: #dabbbb;
     stroke-width: 1.5px;
 }
-
-
-
-#tooltip {
-    background-color: red;
-}
   
 .tooltip {
     position: absolute;
@@ -31,10 +25,8 @@
     width: 60px;
     height: 28px;
     padding: 2px;
-    font: 12px sans-serif;
-    background: transparent;
-    border: 0px;
-    border-radius: 5px;
+    font: 10px sans-serif;
+    background-color: #fff;
     pointer-events: none;
   }
 
