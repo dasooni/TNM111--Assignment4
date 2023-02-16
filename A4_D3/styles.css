@@ -22,12 +22,14 @@
 .tooltip {
     position: absolute;
     text-align: center;
-    width: 60px;
-    height: 28px;
+    width: 85px;
+    height: 50px;
     padding: 2px;
     font: 10px sans-serif;
-    background-color: #fff;
+    background-color: rgba(199, 199, 199, 0.49);
+    
     pointer-events: none;
+    border-style: solid;
   }
 
   svg {

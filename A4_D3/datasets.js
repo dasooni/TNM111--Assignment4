@@ -29,7 +29,7 @@ ep_7 = d3.json(
 function updateVis() {
   const selectedEpisode = document.getElementById("select_graph").value;
   const selectedEpisode_graph2 = document.getElementById("select_graph2").value;
-  
+
   console.log("selectedEpisode: " + selectedEpisode);
   let filePath = "";
 
@@ -89,5 +89,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
   updateVis();
   document.getElementById("select_graph").addEventListener("change", updateVis);
   console.log("event listener added");
-
 });

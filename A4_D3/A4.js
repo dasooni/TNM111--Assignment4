@@ -66,9 +66,9 @@ function renderDiagram(svg, id, data, svg2) {
             .duration(200)
             .style("opacity", 1);
         tooltip
-            .html("Source: " + "<h4>" + d.source.name + "</h4>" 
-            + " Target: " + "<h4>" + d.target.name + "</h4>"
-             + " Value: " + "<h4>" + d.value + "</h4>")
+            .html("Source: " + "<b>" + d.source.name + "</b>" 
+            + "<br>" + " Target: " + "<b>" + d.target.name + "</b>" + "</br"
+             + "<br>" + " Value: " + "<b>" + d.value + "</b>" + "</br")
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
     });
@@ -78,8 +78,8 @@ function renderDiagram(svg, id, data, svg2) {
             .duration(200)
             .style("opacity", 1);
         tooltip
-            .html("<h4>" + d.name + "</h4>" 
-            + " Value: " + "<h4>" + d.value + "</h4>")
+            .html("<b>" + d.name + "</b>" 
+            + "<br>" + " Value: " + "<b>" +  d.value + "</b>"+ "</br>")
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
     });
