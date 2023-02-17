@@ -22,8 +22,9 @@
 .tooltip {
     position: absolute;
     text-align: center;
-    width: 85px;
-    height: 50px;
+    min-width: 85px;
+    min-height: 25px;
+    overflow: hidden;
     padding: 2px;
     font: 10px sans-serif;
     background-color: rgba(199, 199, 199, 0.49);
@@ -33,12 +34,12 @@
   }
 
   svg {
-    margin: auto;
-    padding-left: 50px;
+    margin: auto 1px;
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    border-radius: 5px
   }
 
   select {
