@@ -28,7 +28,7 @@ const svg_right = d3.select("#graph2_svg")
         }))
     .append("g");
 
-// Function to clear the diagram
+// Function to clear the diagram, to avoid drawing on top, see updateVis()
 function clearDiagram(svg) {
     svg.selectAll("*").remove();
 }
@@ -37,6 +37,7 @@ function clearDiagram(svg) {
 function renderDiagram(svg, id, data, svg2) {
     clearDiagram(svg); // Clear the diagram before rendering
     
+    //handle links
     const link = svg.append("g")
         .attr("class", "links")
         .selectAll("line")
@@ -44,11 +45,12 @@ function renderDiagram(svg, id, data, svg2) {
         .enter().append("line")
         .attr("stroke-width", function (d) { return Math.sqrt(d.value) });
 
+    //tooltip activated on hover
     var tooltip = d3.select(id).append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
         .text("tooltip");
-
+    // handle nodes
     const node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
@@ -57,9 +59,11 @@ function renderDiagram(svg, id, data, svg2) {
         .attr("r", function (d) { return d.value * Math.PI/6})
         .style("fill", function (d) { return d.colour });
 
+    //bonus, node names on hover
     node.append("title")
         .text(function (d) { return String(d.name) });
-    
+
+    //hover behaviour
     node.on("mouseover", function mouseover(event, d) {
         // Show d.name in tooltip¨
         tooltip.transition()
@@ -71,12 +75,14 @@ function renderDiagram(svg, id, data, svg2) {
             .style("top", (event.pageY - 28) + "px")
     });
 
+    //hide tooltip on mouseout
     node.on("mouseout", function mouseout(d) {
         tooltip.transition()
             .duration(500)
             .style("opacity", 0);
     });
 
+    //click behaviour, highlighting links. 
     node.on("click", function mouseclick(event, d) {
         d3.selectAll(".links").selectAll("line")
             .style("stroke", function (l) {
@@ -95,7 +101,7 @@ function renderDiagram(svg, id, data, svg2) {
             });
     });
 
-    
+    // force simulation, physics & stuff
     const simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink()
             .id(function (d) { return d.index })
@@ -105,6 +111,7 @@ function renderDiagram(svg, id, data, svg2) {
         .force("center", d3.forceCenter(width / 2, height / 2))
         .on("tick", ticked);
 
+    // tick function, called on every tick of the simulation
     function ticked() {
         link
             .attr("x1", function (d) { return d.source.x })
@@ -117,11 +124,13 @@ function renderDiagram(svg, id, data, svg2) {
             .attr("cy", function (d) { return d.y })
     }
 
+    // drag behaviour
     node.call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended));
 
+    /* drag functions */
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
@@ -138,6 +147,7 @@ function renderDiagram(svg, id, data, svg2) {
         d.fx = null;
         d.fy = null;
     }
+    /* end drag functions */
 
 }
 
