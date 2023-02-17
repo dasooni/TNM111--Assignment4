@@ -40,6 +40,25 @@
 
         <svg id="graph2_svg"></svg> 
         </div>
+        
+        <div id="control_panel">
+            <div>
+                Filter the 
+                <input type="checkbox" id="checkbox_svg1"> Left diagram 
+                <input type="checkbox" id="checkbox_svg2"> Right diagram 
+                based on 
+                <input type="checkbox" id="checkbox_nodes"> Nodes 
+                <input type="checkbox" id="checkbox_edges"> Edges 
+            </div>
+            <div class="range-slider">
+                <span class="range-selected"></span>
+            </div>
+            <div class="range-input">
+                <input type="range" class="min" min="0" max="200" value="30" step="1">
+                <input type="range" class="max" min="0" max="200" value="150" step="1">
+              </div>
+        </div>
+        
     </div>
 
         <!-- Custom JS -->
