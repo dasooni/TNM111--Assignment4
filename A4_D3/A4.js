@@ -37,7 +37,6 @@ function clearDiagram(svg) {
 function renderDiagram(svg, id, data, svg2) {
     clearDiagram(svg); // Clear the diagram before rendering
     
-    //handle links
     const link = svg.append("g")
         .attr("class", "links")
         .selectAll("line")
@@ -45,12 +44,11 @@ function renderDiagram(svg, id, data, svg2) {
         .enter().append("line")
         .attr("stroke-width", function (d) { return Math.sqrt(d.value) });
 
-    //tooltip activated on hover
     var tooltip = d3.select(id).append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
         .text("tooltip");
-    // handle nodes
+
     const node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
@@ -62,15 +60,27 @@ function renderDiagram(svg, id, data, svg2) {
     //bonus, node names on hover
     node.append("title")
         .text(function (d) { return String(d.name) });
-
-    //hover behaviour
+    
     node.on("mouseover", function mouseover(event, d) {
         // Show d.name in tooltip¨
         tooltip.transition()
             .duration(200)
             .style("opacity", 1);
         tooltip
-            .html(d.name)
+            .html("Source: " + "<b>" + d.source.name + "</b>" 
+            + "<br>" + " Target: " + "<b>" + d.target.name + "</b>" + "</br"
+             + "<br>" + " Value: " + "<b>" + d.value + "</b>" + "</br")
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 28) + "px")
+    });
+    
+    node.on("mouseover", function(event, d) {
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", 1);
+        tooltip
+            .html("<b>" + d.name + "</b>" 
+            + "<br>" + " Value: " + "<b>" +  d.value + "</b>"+ "</br>")
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
     });
@@ -101,7 +111,7 @@ function renderDiagram(svg, id, data, svg2) {
             });
     });
 
-    // force simulation, physics & stuff
+    
     const simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink()
             .id(function (d) { return d.index })
