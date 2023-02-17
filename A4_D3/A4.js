@@ -161,3 +161,80 @@ function renderDiagram(svg, id, data, svg2) {
 
 }
 
+//range slider script
+let rangeMin = 0;
+const range = document.querySelector(".range-selected");
+const rangeInput = document.querySelectorAll(".range-input input");
+const rangePrice = document.querySelectorAll(".range-price input");
+
+rangeInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let minRange = parseInt(rangeInput[0].value);
+      let maxRange = parseInt(rangeInput[1].value);
+      if (maxRange - minRange < rangeMin) {     
+        if (e.target.className === "min") {
+          rangeInput[0].value = maxRange - rangeMin;        
+        } else {
+          rangeInput[1].value = minRange + rangeMin;        
+        }
+      } else {
+        range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+        range.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
+      }
+      //console.log(rangeInput[0].value+" "+rangeInput[1].value);
+      //anropa render, med filter
+      filter(rangeInput[0].value, rangeInput[1].value);
+    });  
+});
+
+//filter according to selected range
+function filter(min, max) {
+    nodes = document.getElementById("checkbox_nodes");
+    edges = document.getElementById("checkbox_edges");
+    svg1box = document.getElementById("checkbox_svg1");
+    svg2box = document.getElementById("checkbox_svg2");
+    
+    //reset if nothing is to be filtered
+    if(svg1box.checked==false && svg2box.checked==false || edges.checked==false && nodes.checked==false)
+    {
+        d3.selectAll(".links").selectAll("line")
+        .style("opacity", "1.0");
+
+        d3.selectAll(".nodes").selectAll("circle")
+        .style("opacity", "1.0");
+    }
+
+    //if a diagram and filter type is chosen, do the filtering
+    else
+    {
+        if(svg1box.checked==true && svg2box.checked==true) filtersvg = "#graph1_svg,#graph2_svg";
+        else if(svg1box.checked==true) filtersvg = "#graph1_svg";
+        else if(svg2box.checked==true) filtersvg = "#graph2_svg";
+
+        if(edges.checked == true)
+        {
+            d3.selectAll(filtersvg).selectAll(".links").selectAll("line")
+                .style("opacity", function (l) {
+                    if (l.value >= min && l.value <= max) {
+                        return "1.0";
+                    } else {
+                        return "0.15";
+                    }
+                });
+        }
+
+        if(nodes.checked == true)
+        {
+            d3.selectAll(filtersvg).selectAll(".nodes").selectAll("circle")
+                .style("opacity", function (l) {
+                    if (l.value >= min && l.value <= max) {
+                        return "1.0";
+                    } else {
+                        return "0.3";
+                    }
+                });
+        }
+
+    }
+
+};
