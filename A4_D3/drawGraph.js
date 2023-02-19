@@ -39,6 +39,7 @@ function clearDiagram(svg) {
 function renderDiagram(svg, id, data) {
   clearDiagram(svg); // Clear the diagram before rendering
 
+  // links (edges)
   const link = svg.append("g")
     .attr("class", "links")
     .selectAll("line")
@@ -68,8 +69,6 @@ function renderDiagram(svg, id, data) {
       return d.colour;
     });
 
-    // legend
-
 
   //bonus, node names on hover
   node.append("title").text((d) => String(d.name));
@@ -79,9 +78,9 @@ function renderDiagram(svg, id, data) {
     tooltip.transition().duration(200).style("opacity", 1);
     tooltip
       .html(
-        "Source: " +"<b>" + d.source.name + "</b>" + "<br>" + 
-        " Target: " + "<b>" + d.target.name + "</b>" + "</br>" +"<br>" +
-        " Value: " + "<b>" + d.value + "</b>" + "</br>"
+        "<b>" + d.source.name + "</b>" + 
+        " and: " + "<b>" + d.target.name + "</b>" +"<br>" +
+        " Number of scenes together: " + "<b>" + d.value + "</b>" + "</br>"
       )
       .style("left", event.pageX + 10 + "px")
       .style("top", event.pageY - 28 + "px");
@@ -91,24 +90,18 @@ function renderDiagram(svg, id, data) {
     tooltip.transition().duration(200).style("opacity", 1);
     tooltip
       .html( "<b>" + d.name + "</b>" + "<br>" +
-      " Value: " + "<b>" + d.value + "</b>" + "</br>"
+      " Number of scenes: " + "<b>" + d.value + "</b>" + "</br>"
       )
       .style("left", event.pageX + 10 + "px")
       .style("top", event.pageY - 28 + "px");
   });
 
-  //hide tooltip on mouseout
-  node.on("mouseout", (d) => {
-    tooltip.transition()
-    .duration(500).style("opacity", 0);
-  });
-
-  //click behaviour, highlighting links.
-  node.on("click", (event, d) => {
-    d3.selectAll(".links")
-      .selectAll("line")
+    //click behaviour, highlighting links.
+  d3.selectAll(".nodes").selectAll("circle").on("click", (event, d) => {
+    d3.selectAll(".links").selectAll("line")
       .style("stroke", (l) => {
           if (l.source === d || l.target === d) {
+            //console.log(l);
             return "red";
           } else {
             return "#999";
@@ -121,6 +114,17 @@ function renderDiagram(svg, id, data) {
             return 0.6;
           }
         });
+  });
+
+  //hide tooltip on mouseout
+  node.on("mouseout", (d) => {
+    tooltip.transition()
+    .duration(200).style("opacity", 0);
+  });
+
+  link.on("mouseout", (d) => {
+    tooltip.transition()
+    .duration(200).style("opacity", 0);
   });
 
   const simulation = d3.forceSimulation(data.nodes)
@@ -249,5 +253,4 @@ function filter(min, max) {
     }
   }
 }
-
 

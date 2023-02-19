@@ -15,8 +15,9 @@
 }
 
 .links line {
-    stroke: #dabbbb;
+    stroke: #1b1a1a;
     stroke-width: 1.5px;
+    stroke-opacity: 0.6;
 }
   
 .tooltip {
