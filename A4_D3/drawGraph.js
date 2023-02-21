@@ -1,6 +1,6 @@
 // set the dimensions of the canvas
-width = 500;
-height = 500;
+width = 800;
+height = 700;
 
 // for zooming and panning
 var transform = d3.zoom()
@@ -14,6 +14,7 @@ var transform = d3.zoom()
 const svg = d3.select("#graph1_svg")
   .attr("width", width)
   .attr("height", height)
+  .attr("viewBox", [-width, -height, width*2, height*2])
   .call(d3.zoom().on("zoom", (event) => {
       svg.attr("transform", event.transform);
     })
