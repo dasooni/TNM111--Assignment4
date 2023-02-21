@@ -25,6 +25,7 @@ const svg = d3.select("#graph1_svg")
 const svg_right = d3.select("#graph2_svg")
   .attr("width", width)
   .attr("height", height)
+  .attr("viewBox", [-width, -height, width*2, height*2])
   .call(transform.on("zoom", (event) => {
         svg_right.attr("transform", event.transform);
       })
